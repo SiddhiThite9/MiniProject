@@ -18,33 +18,46 @@ public class ATMINTERFACE {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        // Sample accounts
-        accounts.put("1001", new Account("1001", "1234", 5000));
-        accounts.put("1002", new Account("1002", "4321", 2500));
+        System.out.println(" ATM Interface");
 
-        System.out.println("🏧 ATM Interface");
-
-        System.out.print("Enter Account Number: ");
+        // 🔹 Create Account (User Input)
+        System.out.print("Create Account Number: ");
         String accNo = sc.nextLine().trim();
 
-        Account acc = accounts.get(accNo);
+        System.out.print("Set PIN: ");
+        String pin = sc.nextLine().trim();
+
+        System.out.print("Enter Initial Balance: ");
+        double balance = readDouble(sc);
+
+        Account newAcc = new Account(accNo, pin, balance);
+        accounts.put(accNo, newAcc);
+
+        System.out.println(" Account created successfully!\n");
+
+        // 🔹 Login
+        System.out.print("Enter Account Number: ");
+        String loginAcc = sc.nextLine().trim();
+
+        Account acc = accounts.get(loginAcc);
         if (acc == null) {
-            System.out.println("Account not found ❌");
+            System.out.println("Account not found ");
             sc.close();
             return;
         }
 
         System.out.print("Enter PIN: ");
-        String pin = sc.nextLine().trim();
+        String loginPin = sc.nextLine().trim();
 
-        if (!acc.pin.equals(pin)) {
-            System.out.println("Invalid PIN ❌");
+        if (!acc.pin.equals(loginPin)) {
+            System.out.println("Invalid PIN ");
             sc.close();
             return;
         }
 
-        System.out.println("✅ Login successful!");
+        System.out.println(" Login successful!");
 
+        // 🔹 ATM Menu
         while (true) {
             System.out.println("\n1. Check Balance");
             System.out.println("2. Deposit");
@@ -58,29 +71,34 @@ public class ATMINTERFACE {
                 case "1":
                     System.out.printf("Balance: ₹%.2f%n", acc.balance);
                     break;
+
                 case "2":
                     System.out.print("Enter deposit amount: ");
                     double d = readDouble(sc);
                     if (d <= 0) System.out.println("Invalid amount.");
                     else {
                         acc.balance += d;
-                        System.out.println("✅ Deposited successfully.");
+                        System.out.println(" Deposited successfully.");
                     }
                     break;
+
                 case "3":
                     System.out.print("Enter withdraw amount: ");
                     double w = readDouble(sc);
                     if (w <= 0) System.out.println("Invalid amount.");
-                    else if (w > acc.balance) System.out.println("Insufficient funds ❌");
+                    else if (w > acc.balance)
+                        System.out.println("Insufficient funds ");
                     else {
                         acc.balance -= w;
-                        System.out.println("✅ Withdraw successful. Collect cash 💵");
+                        System.out.println(" Withdraw successful ");
                     }
                     break;
+
                 case "4":
-                    System.out.println("Thank you! 👋");
+                    System.out.println("Thank you! ");
                     sc.close();
                     return;
+
                 default:
                     System.out.println("Invalid choice.");
             }
@@ -90,8 +108,11 @@ public class ATMINTERFACE {
     static double readDouble(Scanner sc) {
         while (true) {
             String s = sc.nextLine().trim();
-            try { return Double.parseDouble(s); }
-            catch (Exception e) { System.out.print("Enter a valid amount: "); }
+            try {
+                return Double.parseDouble(s);
+            } catch (Exception e) {
+                System.out.print("Enter a valid amount: ");
+            }
         }
     }
 }
