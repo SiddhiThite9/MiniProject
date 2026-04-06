@@ -69,7 +69,7 @@ public class ATMINTERFACE {
 
             switch (ch) {
                 case "1":
-                    System.out.printf("Balance: ₹%.2f%n", acc.balance);
+                    System.out.printf("Balance: %.2f%n", acc.balance);
                     break;
 
                 case "2":
