@@ -15,7 +15,8 @@ class Book {
 
     @Override
     public String toString() {
-        return "Book ID: " + id + " | " + title + " by " + author + " | " + (issued ? "Issued ❌" : "Available ✅");
+        
+        return "Book ID: " + id + " | " + title + " by " + author + " | " + (issued ? "Issued " : "Available ");
     }
 }
 
@@ -44,7 +45,7 @@ public class DIGITALLIBMANAGEMENT {
                 case "4": issue(sc); break;
                 case "5": ret(sc); break;
                 case "6":
-                    System.out.println("Exiting... 👋");
+                    System.out.println("Exiting... ");
                     sc.close();
                     return;
                 default:
@@ -62,7 +63,7 @@ public class DIGITALLIBMANAGEMENT {
         Book b = new Book(nextId++, title, author);
         books.put(b.id, b);
 
-        System.out.println("✅ Book added: " + b);
+        System.out.println(" Book added: " + b);
     }
 
     static void viewAll() {
@@ -102,7 +103,7 @@ public class DIGITALLIBMANAGEMENT {
             return;
         }
         b.issued = true;
-        System.out.println("✅ Book issued: " + b);
+        System.out.println(" Book issued: " + b);
     }
 
     static void ret(Scanner sc) {
@@ -119,7 +120,7 @@ public class DIGITALLIBMANAGEMENT {
             return;
         }
         b.issued = false;
-        System.out.println("✅ Book returned: " + b);
+        System.out.println(" Book returned: " + b);
     }
 
     static int readInt(Scanner sc) {
